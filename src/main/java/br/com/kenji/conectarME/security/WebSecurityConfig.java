@@ -32,8 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			// filtra outras requisições para verificar a presença do JWT no header
 			.addFilterBefore(new JWTAuthenticationFilter(),
 	                UsernamePasswordAuthenticationFilter.class);
-	             */   
-	                
+              */
 	}
 	
 	@Override
@@ -43,6 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.withUser("conectarme")
 			.password("{noop}h0la!Mund0")
 			.roles("ADMIN");
+		
+
 	}
 
 }

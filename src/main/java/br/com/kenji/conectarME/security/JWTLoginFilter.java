@@ -17,6 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.kenji.conectarME.model.Usuario;
+
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter{
 	protected JWTLoginFilter(String url, AuthenticationManager authManager) {
 		super(new AntPathRequestMatcher(url));
@@ -26,7 +28,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter{
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException, ServletException {
-		
+
+		/*
 		AccountCredentials credentials = new ObjectMapper()
 				.readValue(request.getInputStream(), AccountCredentials.class);
 		
@@ -37,6 +40,20 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter{
 						Collections.emptyList()
 						)
 				);
+		*/
+
+		Usuario credentials = new ObjectMapper()
+				.readValue(request.getInputStream(), Usuario.class);
+		
+		return getAuthenticationManager().authenticate(
+				new UsernamePasswordAuthenticationToken(
+						credentials.getEmail(), 
+						credentials.getSenha(), 
+						Collections.emptyList()
+						)
+				);
+		
+		
 	}
 	
 	@Override
